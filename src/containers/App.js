@@ -4,14 +4,16 @@ import NavBar from '../components/NavBar'
 import Welcome from '../components/Welcome'
 import Login from '../components/Login'
 import Profile from './Profile'
-import {Route, Redirect} from 'react-router-dom'
+import {Route, Redirect, Switch} from 'react-router-dom'
+import DeckDetails from '../components/DeckDetails'
 
 
 class App extends Component {
   constructor(){
     super()
     this.state={
-      currentUser: null
+      currentUser: null,
+      current_deck: null
     }
   }
 
@@ -26,7 +28,7 @@ class App extends Component {
        }).then(res => res.json())
        .then(data => {
          this.setState({
-           currentUser: data.user
+           currentUser: data
          })
        })
      }
@@ -41,17 +43,21 @@ class App extends Component {
     this.setState({currentUser: null})
   }
 
+  displayDeckCards = (deck) => {
+    this.setState({
+      current_deck: deck
+    })
+  }
+
   render() {
     return (
       <div className="App">
           <NavBar logged_in={!!this.state.currentUser} logout={this.logout}/>
-          <Route exact path='/' render={()=>
-                    <Welcome
-                      />
-                  }/>
+          <Switch>
           <Route exact path="/profile" render={() =>
               <Profile
               currentUser={this.state.currentUser}
+              displayDeckCards={this.displayDeckCards}
               />}
               />
           <Route exact path="/login" render={() => this.state.currentUser ?
@@ -59,6 +65,12 @@ class App extends Component {
             <Login updateCurrentUser={this.updateCurrentUser}
             /> }
           />
+          <Route exact path="/decks/:id" render={()=>{
+            return <DeckDetails current_deck={this.state.current_deck} currentUser={this.state.currentUser}/>
+          }}
+          />
+          <Route path='/' render={()=> <Welcome/>}/>
+        </Switch>
       </div>
     )
   }

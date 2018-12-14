@@ -3,10 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "jquery": "^3.3.1",
     "react": "^16.6.3",
+    "react-deck-o-cards": "^1.0.3",
     "react-dom": "^16.6.3",
+    "react-flashcard-app": "^1.3.1",
+    "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
+    "redux": "^4.0.1",
+    "semantic-ui": "^2.4.2",
     "semantic-ui-react": "^0.84.0"
   },
   "scripts": {
