@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import DeckModal from '../components/DeckModal'
 
 class MyDecks extends React.Component{
   render(){
@@ -7,9 +8,7 @@ class MyDecks extends React.Component{
       <div className="MyFlashcards">
       <h3>My Flashcards: </h3>
 
-      <div className="ui icon button" data-tooltip="Create new set of flashcards." data-position="top left" data-inverted="">
-          <i className="add icon"></i>
-      </div>
+      <DeckModal currentUser={this.props.currentUser}/>
 
       <div className="ui cards">
           {this.props.currentUser.decks.map(deck=> {

@@ -65,8 +65,9 @@ class App extends Component {
             <Login updateCurrentUser={this.updateCurrentUser}
             /> }
           />
-          <Route exact path="/decks/:id" render={()=>{
-            return <DeckDetails current_deck={this.state.current_deck} currentUser={this.state.currentUser}/>
+          <Route exact path="/decks/:id" render={(data)=>{
+            console.log(data)
+            return <DeckDetails deckId={data.match.params.id} currentUser={this.state.currentUser}/>
           }}
           />
           <Route path='/' render={()=> <Welcome/>}/>

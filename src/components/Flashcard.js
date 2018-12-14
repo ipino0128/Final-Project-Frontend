@@ -4,12 +4,12 @@ class Flashcard extends React.Component{
   render(){
     return(
       <div className="Flashcard">
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
+      <div className="flip-card">
+        <div className="flip-card-inner">
+          <div className="flip-card-front">
             <p>{this.props.card.front} </p>
           </div>
-          <div class="flip-card-back">
+          <div className="flip-card-back">
             <p>{this.props.card.back}</p>
           </div>
         </div>

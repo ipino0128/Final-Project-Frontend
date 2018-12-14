@@ -5,14 +5,16 @@ import Flashcard from '../components/Flashcard'
 class FlashcardsContainer extends React.Component{
 
   render(){
-
     return(
-      <div className="FlashcardsContainer">
-        {this.props.current_deck.cards.map(card=> {
-          return(
-            <Flashcard key={card.id} card={card}/>
-          )
-        })}
+      <div>
+          <div className="FlashcardsContainer">
+            {this.props.findDeck.cards.map(card=> {
+              return(
+                <Flashcard key={card.id} card={card}/>
+              )
+            })}
+          </div>
+      
       </div>
     )
   }
