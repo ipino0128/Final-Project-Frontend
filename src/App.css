@@ -1,3 +1,7 @@
+.App{
+
+
+}
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -123,4 +127,17 @@
   background-color: #bbb;
   color: black;
   transform: rotateY(180deg);
+}
+
+.Welcome{
+  max-width: 2000px;
+   margin: auto;
+}
+
+.caro{
+  height: 400px;
+}
+
+.caro img{
+height: 400px;
 }

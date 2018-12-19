@@ -8,10 +8,10 @@ class MyDecks extends React.Component{
       <div className="MyFlashcards">
       <h3>My Flashcards: </h3>
 
-      <DeckModal currentUser={this.props.currentUser}/>
+      <DeckModal currentUser={this.props.currentUser} addDecks={this.props.addDecks} updateCurrentDeck={this.props.updateCurrentDeck}/>
 
       <div className="ui cards">
-          {this.props.currentUser.decks.map(deck=> {
+          {this.props.decks.map(deck=> {
             return(
               <div key={deck.id} className="card" onClick={()=>this.props.handleClick(deck)}>
                 <div className="content">

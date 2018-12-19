@@ -27,6 +27,7 @@ class DeckModal extends React.Component{
 
       handleSubmit = (e) => {
         e.preventDefault()
+        let token = localStorage.getItem('token')
         let data = {
           name: this.state.name,
           user_id: this.state.user_id,
@@ -34,6 +35,7 @@ class DeckModal extends React.Component{
         fetch('http://localhost:3000/decks', {
         method: "POST",
         headers: {
+          "Authorization" : `Bearer ${token}`,
           "Content-Type": "application/json",
           "Accept": "application/json"
         },
@@ -42,6 +44,8 @@ class DeckModal extends React.Component{
       .then(deck => {
         console.log(deck)
         this.handleClose()
+        this.props.addDecks(deck)
+        this.props.updateCurrentDeck(deck)
         this.setState({
           redirectId: deck.id
         })

@@ -23,6 +23,12 @@ const NavBar = (props) => {
             name="My Profile"
             active={pathname === "/profile"}
           />
+          <Menu.Item
+            as={NavLink}
+            to="/users"
+            name="Browse Users"
+            active={pathname === "/users"}
+          />
           <Menu.Menu position="right">
             <Menu.Item to="/logout" name="Logout" onClick={logout} />
           </Menu.Menu>

@@ -4,17 +4,21 @@ import Flashcard from '../components/Flashcard'
 
 class FlashcardsContainer extends React.Component{
 
+
   render(){
+    const filteredCards = this.props.cards.filter(card=> card.deck_id === this.props.current_deck.id)
+
     return(
       <div>
           <div className="FlashcardsContainer">
-            {this.props.findDeck.cards.map(card=> {
-              return(
-                <Flashcard key={card.id} card={card}/>
-              )
-            })}
+          {filteredCards.map(card => {
+            return(
+              <Flashcard key={card.id} card={card}/>
+            )
+          })}
+
           </div>
-      
+
       </div>
     )
   }

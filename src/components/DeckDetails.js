@@ -3,27 +3,44 @@ import FlashcardsContainer from '../containers/FlashcardsContainer'
 import CardModal from './CardModal'
 
 
-const DeckDetails = (props) => {
+class DeckDetails extends React.Component{
+  constructor(){
+    super()
+    this.state={
+      cards:[]
+    }
+  }
 
-  const findDeck = props.currentUser.decks.find(deck=> {
-      return deck.id === parseInt(props.deckId)
+  componentDidMount(){
+    fetch(`http://localhost:3000/cards`)
+    .then(res=> res.json())
+    .then(data => this.setState({
+      cards: data
+    }))
+  }
+
+  addCards = (card) => {
+    this.setState({
+      cards: [...this.state.cards, card]
     })
+  }
 
-
+render(){
   return(
     <div>
-    {props.currentUser ?
+    {this.props.currentUser ?
 
       <div className="DeckDetails">
-        <h2> {findDeck.name}</h2>
+        <h2> {this.props.current_deck.name}</h2>
         <h5> description... </h5>
-        <CardModal/>
-        <FlashcardsContainer findDeck={findDeck} />
+        <CardModal current_deck={this.props.current_deck} addCards={this.addCards}/>
+        <FlashcardsContainer current_deck={this.props.current_deck} cards={this.state.cards}/>
       </div>
       : null
     }
     </div>
   )
+}
 }
 
 export default DeckDetails

@@ -22,15 +22,17 @@ class Login extends React.Component {
     		"Accept" : "application/json"
     	},
     	body: JSON.stringify({
-    		username: this.state.username,
-    		password: this.state.password
+        user:{
+          username: this.state.username,
+          password: this.state.password
+        }
     	})
     }).then(res => res.json())
     .then(data => {
       if(data.error){
         alert('incorrect username or password')
       }else{
-        localStorage.setItem('token', data.token)
+        localStorage.setItem('token', data.jwt)
         this.props.updateCurrentUser(data.user)
         //set the state of currentUser, to be the user that is logged
       }
