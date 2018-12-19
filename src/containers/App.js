@@ -8,6 +8,7 @@ import {Route, Redirect, Switch} from 'react-router-dom'
 import DeckDetails from '../components/DeckDetails'
 import FriendProfile from './FriendProfile'
 import BrowseUsers from './BrowseUsers'
+import FriendRequests from '../components/FriendRequests'
 
 
 class App extends Component {
@@ -43,25 +44,26 @@ class App extends Component {
 
 
   componentDidMount(){
-  //   let token = localStorage.getItem('token')
-  //   if(!!token){
-  //      fetch(`http://localhost:3000/profile`, {
-  //        method: "GET",
-  //        headers: {
-  //          "Authorization" : `Bearer ${token}`
-  //        }
-  //      }).then(res => {
-  //        console.log(`app component did mount :${res}`)
-  //        res.text()
-  //      })
-  //      .then(data => {
-  //        console.log(data)
-  //        this.setState({
-  //          currentUser: data
-  //        })
-  //        this.handleDecks()
-  //      })
-  // }
+    console.log("hello")
+    let token = localStorage.getItem('token')
+    if(!!token){
+      console.log("inside token component did mount")
+       fetch(`http://localhost:3000/profile`, {
+         method: "GET",
+         headers: {
+           "Authorization" : `Bearer ${token}`
+         }
+       }).then(res => {
+         console.log(`app component did mount :${res}`)
+         res.json()
+       })
+       .then(data => {
+         console.log(data)
+         this.setState({
+           currentUser: data
+         })
+       })
+  }
 }
 
 
@@ -106,6 +108,24 @@ class App extends Component {
     })
   }
 
+  acceptFriendRequest = (userFriend) => {
+    let token = localStorage.getItem('token')
+    let filteredFriend = this.state.currentUser.inverse_friendships.filter(friendship=> friendship.user_id === userFriend.id)
+    let friendshipId = filteredFriend[0].id
+    fetch(`http://localhost:3000/friendships/${friendshipId}`, {
+      method: "PATCH",
+      headers: {
+        "Authorization" : `Bearer ${token}`,
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+      confirmed: true})
+    }).then(res=> res.json())
+    .then(data=> console.log(data))
+  }
+
+
   render() {
     return (
       <div className="App">
@@ -137,9 +157,15 @@ class App extends Component {
           <Route exact path="/users" render={() =>
               <BrowseUsers
               currentUser={this.state.currentUser}
+              setFriend={this.setFriend}
               />}
               />
-
+          <Route exact path="/friendrequests" render={() =>
+              <FriendRequests
+              currentUser={this.state.currentUser}
+              acceptFriendRequest={this.acceptFriendRequest}
+              />}
+              />
           <Route exact path="/login" render={() => this.state.currentUser ?
             <Redirect to='/'/> :
             <Login updateCurrentUser={this.updateCurrentUser}
@@ -150,7 +176,9 @@ class App extends Component {
             return <DeckDetails
               deckId={data.match.params.id}
               currentUser={this.state.currentUser}
-              current_deck={this.state.current_deck}/>
+              current_deck={this.state.current_deck}
+              currentFriend={this.state.currentFriend}
+              updateCurrentDeck={this.updateCurrentDeck}/>
           }}
           />
           <Route path='/' render={()=> <Welcome/>}/>

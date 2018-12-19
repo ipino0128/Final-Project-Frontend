@@ -1,6 +1,8 @@
 import React from 'react'
 import FlashcardsContainer from '../containers/FlashcardsContainer'
 import CardModal from './CardModal'
+import FavoriteDeck from './FavoriteDeck'
+import EditDeckModal from './EditDeckModal'
 
 
 class DeckDetails extends React.Component{
@@ -25,7 +27,9 @@ class DeckDetails extends React.Component{
     })
   }
 
+
 render(){
+  console.log(this.props)
   return(
     <div>
     {this.props.currentUser ?
@@ -33,8 +37,19 @@ render(){
       <div className="DeckDetails">
         <h2> {this.props.current_deck.name}</h2>
         <h5> description... </h5>
+
+
+      { this.props.currentUser.id !== this.props.current_deck.user_id ?
+        <FavoriteDeck/>
+         :
+         <div>
         <CardModal current_deck={this.props.current_deck} addCards={this.addCards}/>
-        <FlashcardsContainer current_deck={this.props.current_deck} cards={this.state.cards}/>
+        <EditDeckModal current_deck={this.props.current_deck} currentUser={this.props.currentUser} updateCurrentDeck={this.props.updateCurrentDeck}/>
+        </div>
+      }
+
+
+        <FlashcardsContainer currentUser={this.props.currentUser} current_deck={this.props.current_deck} cards={this.state.cards}/>
       </div>
       : null
     }

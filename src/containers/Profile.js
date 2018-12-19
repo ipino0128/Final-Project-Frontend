@@ -8,7 +8,7 @@ import MyDecks from './MyDecks'
 class Profile extends React.Component{
 
 render(){
-  
+
   let { currentUser } = this.props
 
  return currentUser ? (
@@ -34,7 +34,7 @@ render(){
     </div>
 
   <WallContainer />
-  <FriendsContainer currentUser={currentUser} setFriend={this.props.setFriend}/>
+  <FriendsContainer currentUser={currentUser} setFriend={this.props.setFriend} user={currentUser}/>
   <LanguagesContainer currentUser={currentUser}/>
   <MyDecks currentUser={currentUser} handleClick={this.props.displayDeckCards} decks={this.props.decks} addDecks={this.props.addDecks} updateCurrentDeck={this.props.updateCurrentDeck}/>
 

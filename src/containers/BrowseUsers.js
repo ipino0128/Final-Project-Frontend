@@ -1,11 +1,15 @@
 import React from 'react'
 import {Redirect} from 'react-router-dom'
+import {Link} from 'react-router-dom'
+import { Search } from 'semantic-ui-react'
+import _ from 'lodash'
 
 class BrowseUsers extends React.Component{
   constructor(){
     super()
     this.state={
-      users: []
+      users: [],
+      searchTerm: ""
     }
   }
 
@@ -16,17 +20,31 @@ class BrowseUsers extends React.Component{
       users: data
     }))
   }
+  handleSearchChange = (event, {value}) => {
+      this.setState({
+        searchTerm: value
+      })
+}
 
   render(){
-    let { currentUser } = this.props
+
+  let { currentUser } = this.props
+
+  const otherUsers = this.state.users.filter(user=> user.id !== currentUser.id)
+
+  const searchedUsers = otherUsers.filter(user=> {
+    return user.username.toLowerCase().includes(this.state.searchTerm)
+  })
+
 
    return currentUser ? (
-     
-      <div>
-      {this.state.users.map(user=> {
-        return(
 
-          <div className="ui card" >
+      <div>
+      <Search className="search-feature" onSearchChange={_.debounce(this.handleSearchChange, 500)} showNoResults={false} />
+      {searchedUsers.map(user=> {
+        return(
+          <Link key={user.id} to={`/profile/${user.id}`}>
+          <div key={user.id} className="ui card" onClick={()=> this.props.setFriend(user)}>
             <div className="image">
             <i className="edit icon" id="EditIcon"></i>
               <img src={user.image} alt="sdkfl"/>
@@ -38,12 +56,13 @@ class BrowseUsers extends React.Component{
               </div>
             </div>
             <div className="extra content">
-              <a>
+            
                 <i className="user icon"></i>
                  Friends
-              </a>
+
             </div>
           </div>
+          </Link>
         )
       })}
       </div>

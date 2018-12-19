@@ -1,4 +1,5 @@
 import React from 'react'
+import EditCardModal from './EditCardModal'
 
 class Flashcard extends React.Component{
   render(){
@@ -10,6 +11,10 @@ class Flashcard extends React.Component{
             <p>{this.props.card.front} </p>
           </div>
           <div className="flip-card-back">
+
+          { this.props.currentUser.id !== this.props.current_deck.user_id ? null :
+            <EditCardModal card={this.props.card}/>
+           }
             <p>{this.props.card.back}</p>
           </div>
         </div>

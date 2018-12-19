@@ -1,12 +1,19 @@
 import React from 'react'
 
-const AddFriend = (props) => {
+class AddFriend extends React.Component{
+  constructor(){
+    super()
+    this.state={
+      addIsClicked: false,
+      removeIsClicked: false
+    }
+  }
 
-  const addFriendButton = () => {
+  addFriendButton = () => {
     let token = localStorage.getItem('token')
     let data = {
-      user_id: props.currentUser.id,
-      friend_id: props.currentFriend.id,
+      user_id: this.props.currentUser.id,
+      friend_id: this.props.currentFriend.id,
       confirmed: false
     }
     fetch(`http://localhost:3000/friendships`, {
@@ -18,29 +25,50 @@ const AddFriend = (props) => {
       },
       body: JSON.stringify(data)
     }).then(res=> res.json())
-    .then(data=>console.log(data))
+    .then(data=> {
+      console.log(data)
+      this.setState({
+        addIsClicked: true
+      })
+    })
   }
 
-  const addFriendHandler = () =>{
-    let idArray = props.currentUser.friends.map(friend=> friend.id)
-    if (idArray.includes(props.currentFriend.id)){
+  removeFriendButton = ()=> {
+    let filteredFriend = this.props.currentUser.friendships.filter(friendship=> friendship.friend_id === this.props.currentFriend.id)
+    let friendshipId = filteredFriend[0].id
+    fetch(`http://localhost:3000/friendships/${friendshipId}`, {
+      method: "DELETE",
+    }).then(res=> res.json())
+    .then(data=> {
+      console.log(data)
+      this.setState({
+        removeIsClicked: true
+      })
+    })
+
+  }
+
+  addFriendHandler = () =>{
+    let idArray = this.props.currentUser.friends.map(friend=> friend.id)
+    if (idArray.includes(this.props.currentFriend.id)){
       return(
-        <div>
-        Friends
-        </div>
+        this.state.removeIsClicked ? <p> Friend removed </p> : <button onClick={this.removeFriendButton}>Remove friend</button>
+
       )
     } else {
       return(
-        <button onClick={addFriendButton}> Add friend</button>
+        this.state.addIsClicked ? <p> Pending ... </p> : <button onClick={this.addFriendButton}>Add friend</button>
       )
     }
 
   }
+  render(){
   return(
     <div>
-    {addFriendHandler()}
+    {this.addFriendHandler()}
     </div>
   )
+}
 }
 
 export default AddFriend

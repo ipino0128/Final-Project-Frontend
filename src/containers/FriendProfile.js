@@ -5,6 +5,7 @@ import LanguagesContainer from './LanguagesContainer'
 import WallContainer from './WallContainer'
 import MyDecks from './MyDecks'
 import AddFriend from '../components/AddFriend'
+import UserDecks from './UserDecks'
 
 class FriendProfile extends React.Component{
 
@@ -35,9 +36,17 @@ render(){
         </div>
     </div>
 
-  <WallContainer />
-  <FriendsContainer currentUser={currentFriend} setFriend={this.props.setFriend}/>
+    <div className="FriendWallContainer">
+    <div className="ui form">
+      <div className="field">
+        <textarea placeholder="Post on their wall..." rows="2"></textarea>
+      </div>
+       <button className="ui button" type="submit">Post</button>
+      </div>
+  </div>
+  <FriendsContainer currentUser={currentFriend} user={this.props.currentUser} setFriend={this.props.setFriend}/>
   <LanguagesContainer currentUser={currentFriend}/>
+  <UserDecks currentFriend={currentFriend} handleClick={this.props.displayDeckCards}/>
 
 
    </div>

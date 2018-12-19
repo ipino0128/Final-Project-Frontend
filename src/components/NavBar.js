@@ -29,6 +29,12 @@ const NavBar = (props) => {
             name="Browse Users"
             active={pathname === "/users"}
           />
+          <Menu.Item
+            as={NavLink}
+            to="/friendrequests"
+            name="Friend Requests"
+            active={pathname === "/friendrequests"}
+          />
           <Menu.Menu position="right">
             <Menu.Item to="/logout" name="Logout" onClick={logout} />
           </Menu.Menu>
