@@ -13,7 +13,10 @@ class Flashcard extends React.Component{
           <div className="flip-card-back">
 
           { this.props.currentUser.id !== this.props.current_deck.user_id ? null :
-            <EditCardModal card={this.props.card}/>
+            <div>
+            <EditCardModal card={this.props.card} updateCards={this.props.updateCards}/>
+            <button> Delete Card</button> 
+            </div>
            }
             <p>{this.props.card.back}</p>
           </div>

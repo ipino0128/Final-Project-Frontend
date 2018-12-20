@@ -16,7 +16,6 @@ class App extends Component {
     super()
     this.state={
       currentUser: null,
-      current_friend: null,
       currentUsersDecks: [],
       current_deck: null,
     }
@@ -96,18 +95,6 @@ class App extends Component {
     })
   }
 
-  setFriend = (friend) => {
-    let id = friend.id
-    fetch(`http://localhost:3000/users/${id}`)
-    .then(res=> res.json())
-    .then(data => {
-      console.log(data)
-      this.setState({
-        current_friend: data
-      })
-    })
-  }
-
   acceptFriendRequest = (userFriend) => {
     let token = localStorage.getItem('token')
     let filteredFriend = this.state.currentUser.inverse_friendships.filter(friendship=> friendship.user_id === userFriend.id)
@@ -125,7 +112,6 @@ class App extends Component {
     .then(data=> console.log(data))
   }
 
-
   render() {
     return (
       <div className="App">
@@ -138,20 +124,21 @@ class App extends Component {
               decks={this.state.currentUsersDecks}
               addDecks={this.addDecks}
               updateCurrentDeck={this.updateCurrentDeck}
-              setFriend={this.setFriend}
+
               />}
               />
 
-            <Route exact path="/profile/:id" render={() =>
-              <FriendProfile
-              currentFriend={this.state.current_friend}
+            <Route exact path="/profile/:id" render={(data) => {
+              console.log(data)
+              return <FriendProfile
+              friendId={data.match.params.id}
               currentUser={this.state.currentUser}
               displayDeckCards={this.displayDeckCards}
               decks={this.state.currentUsersDecks}
               addDecks={this.addDecks}
               updateCurrentDeck={this.updateCurrentDeck}
-              setFriend={this.setFriend}
-              />}
+
+              />} }
                 />
 
           <Route exact path="/users" render={() =>

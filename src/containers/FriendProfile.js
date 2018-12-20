@@ -8,22 +8,51 @@ import AddFriend from '../components/AddFriend'
 import UserDecks from './UserDecks'
 
 class FriendProfile extends React.Component{
+  constructor(){
+    super()
+    this.state={
+      current_friend: null
+    }
+  }
+
+  componentDidMount(){
+
+    let token = localStorage.getItem('token')
+    let id = this.props.friendId
+    fetch(`http://localhost:3000/users/${id}`, {
+      method: "GET",
+      headers: {
+        "Authorization" : `Bearer ${token}`
+      }
+    })
+    .then(res=> res.json())
+    .then(data => {
+      console.log(data)
+      this.setState({
+        current_friend: data
+      })
+    })
+  }
+
+  componentWillUnmount(){
+
+  }
 
 render(){
 
-  let { currentFriend } = this.props
+  let { current_friend } = this.state
 
- return currentFriend ? (
+ return current_friend ? (
    <div className="Profile">
-           <h3> {currentFriend.username}'s profile </h3>
-  <AddFriend currentFriend={currentFriend} currentUser={this.props.currentUser}/>
+           <h3> {current_friend.username}'s profile </h3>
+  <AddFriend currentFriend={current_friend} currentUser={this.props.currentUser}/>
       <div className="ui card">
         <div className="image">
         <i className="edit icon" id="EditIcon"></i>
-          <img src={currentFriend.image} alt="sdkfl"/>
+          <img src={current_friend.image} alt="sdkfl"/>
         </div>
         <div className="content">
-          <a className="header">{currentFriend.username}</a>
+          <a className="header">{current_friend.username}</a>
           <div className="description">
             my bio goes here
           </div>
@@ -44,13 +73,13 @@ render(){
        <button className="ui button" type="submit">Post</button>
       </div>
   </div>
-  <FriendsContainer currentUser={currentFriend} user={this.props.currentUser} setFriend={this.props.setFriend}/>
-  <LanguagesContainer currentUser={currentFriend}/>
-  <UserDecks currentFriend={currentFriend} handleClick={this.props.displayDeckCards}/>
+  <FriendsContainer currentUser={current_friend} user={this.props.currentUser} />
+  <LanguagesContainer currentUser={current_friend}/>
+  <UserDecks currentFriend={current_friend} handleClick={this.props.displayDeckCards}/>
 
 
    </div>
- ) : <Redirect to='/login' />
+ ) : null
  }
 }
 

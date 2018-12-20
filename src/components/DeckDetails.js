@@ -21,9 +21,11 @@ class DeckDetails extends React.Component{
     }))
   }
 
-  addCards = (card) => {
+
+  updateCards = (card) => {
+    let newCards = this.state.cards.filter(prevCard=> prevCard.id !== card.id)
     this.setState({
-      cards: [...this.state.cards, card]
+      cards: [...newCards, card]
     })
   }
 
@@ -45,11 +47,12 @@ render(){
          <div>
         <CardModal current_deck={this.props.current_deck} addCards={this.addCards}/>
         <EditDeckModal current_deck={this.props.current_deck} currentUser={this.props.currentUser} updateCurrentDeck={this.props.updateCurrentDeck}/>
+        <button>Delete Deck</button> 
         </div>
       }
 
 
-        <FlashcardsContainer currentUser={this.props.currentUser} current_deck={this.props.current_deck} cards={this.state.cards}/>
+        <FlashcardsContainer currentUser={this.props.currentUser} current_deck={this.props.current_deck} cards={this.state.cards} updateCards={this.updateCards}/>
       </div>
       : null
     }

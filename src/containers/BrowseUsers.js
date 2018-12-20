@@ -44,19 +44,19 @@ class BrowseUsers extends React.Component{
       {searchedUsers.map(user=> {
         return(
           <Link key={user.id} to={`/profile/${user.id}`}>
-          <div key={user.id} className="ui card" onClick={()=> this.props.setFriend(user)}>
+          <div key={user.id} className="ui card" >
             <div className="image">
-            <i className="edit icon" id="EditIcon"></i>
+          
               <img src={user.image} alt="sdkfl"/>
             </div>
             <div className="content">
-              <a className="header">{user.username}</a>
+              <p className="header">{user.username}</p>
               <div className="description">
                 my bio goes here
               </div>
             </div>
             <div className="extra content">
-            
+
                 <i className="user icon"></i>
                  Friends
 

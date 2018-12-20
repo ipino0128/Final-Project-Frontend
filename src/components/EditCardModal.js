@@ -22,7 +22,7 @@ class EditCardModal extends React.Component{
 
     handleClose = () => this.setState({ modalOpen: false })
 
-      handleSubmit = (e) => {
+    handleSubmit = (e) => {
         let id=this.props.card.id
         e.preventDefault()
         let token = localStorage.getItem('token')
@@ -40,8 +40,7 @@ class EditCardModal extends React.Component{
         body: JSON.stringify(data)
       }).then(res=> res.json())
       .then(card => {
-        console.log(card)
-      
+        this.props.updateCards(card)
         this.handleClose()
       })
 

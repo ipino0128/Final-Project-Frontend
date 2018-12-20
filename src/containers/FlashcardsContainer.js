@@ -13,7 +13,7 @@ class FlashcardsContainer extends React.Component{
           <div className="FlashcardsContainer">
           {filteredCards.map(card => {
             return(
-              <Flashcard key={card.id} card={card} currentUser={this.props.currentUser} current_deck={this.props.current_deck}/>
+              <Flashcard key={card.id} card={card} currentUser={this.props.currentUser} current_deck={this.props.current_deck} updateCards={this.props.updateCards}/>
             )
           })}
 

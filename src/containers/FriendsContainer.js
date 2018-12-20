@@ -22,7 +22,7 @@ const FriendsContainer = (props) => {
           </Link>
          :
          <Link key={friend.id} to={`/profile/${friend.id}`}>
-           <div onClick={()=>props.setFriend(friend)}
+           <div 
              key={friend.id}
              className="FriendCard"
              data-tooltip={friend.username}

@@ -13,7 +13,7 @@ render(){
 
  return currentUser ? (
    <div className="Profile">
-           <h3> {currentUser.username}'s profile </h3>
+           <h3> My profile </h3>
       <div className="ui card">
         <div className="image">
         <i className="edit icon" id="EditIcon"></i>
@@ -34,7 +34,7 @@ render(){
     </div>
 
   <WallContainer />
-  <FriendsContainer currentUser={currentUser} setFriend={this.props.setFriend} user={currentUser}/>
+  <FriendsContainer currentUser={currentUser} user={currentUser}/>
   <LanguagesContainer currentUser={currentUser}/>
   <MyDecks currentUser={currentUser} handleClick={this.props.displayDeckCards} decks={this.props.decks} addDecks={this.props.addDecks} updateCurrentDeck={this.props.updateCurrentDeck}/>
 
