@@ -4,6 +4,7 @@ import FriendsContainer from './FriendsContainer'
 import LanguagesContainer from './LanguagesContainer'
 import WallContainer from './WallContainer'
 import MyDecks from './MyDecks'
+import MyFavorites from './MyFavorites'
 
 class Profile extends React.Component{
 
@@ -36,7 +37,18 @@ render(){
   <WallContainer />
   <FriendsContainer currentUser={currentUser} user={currentUser}/>
   <LanguagesContainer currentUser={currentUser}/>
-  <MyDecks currentUser={currentUser} handleClick={this.props.displayDeckCards} decks={this.props.decks} addDecks={this.props.addDecks} updateCurrentDeck={this.props.updateCurrentDeck}/>
+  <MyDecks
+  currentUser={currentUser}
+  handleClick={this.props.displayDeckCards}
+  decks={this.props.decks} addDecks={this.props.addDecks}
+  updateCurrentDeck={this.props.updateCurrentDeck}
+  languages={this.props.languages}/>
+  <br/>
+  <MyFavorites
+  currentUser={this.props.currentUser}
+  favorite_decks={this.props.favorite_decks}
+  languages={this.props.languages}
+  handleClick={this.props.displayDeckCards}/>
 
    </div>
  ) : <Redirect to='/login' />

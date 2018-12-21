@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Header, Modal} from 'semantic-ui-react'
+import { Button, Header, Modal, Dropdown} from 'semantic-ui-react'
 import { Redirect, Link} from 'react-router-dom'
 
 
@@ -11,7 +11,8 @@ class DeckModal extends React.Component{
       name: "",
       user_id: "",
       modalOpen: false,
-      redirectId: null
+      redirectId: null,
+      language_id: ""
     }
   }
 
@@ -21,6 +22,14 @@ class DeckModal extends React.Component{
     user_id: this.props.currentUser.id,
   })
 }
+
+handleSelectorChange = (event, data) => {
+  this.setState({
+    language_id: data.value
+  })
+}
+
+
     handleOpen = () => this.setState({ modalOpen: true })
 
     handleClose = () => this.setState({ modalOpen: false })
@@ -31,6 +40,7 @@ class DeckModal extends React.Component{
         let data = {
           name: this.state.name,
           user_id: this.state.user_id,
+          language_id: this.state.language_id
         }
         fetch('http://localhost:3000/decks', {
         method: "POST",
@@ -69,6 +79,14 @@ class DeckModal extends React.Component{
 
             <Header icon='folder outline' content='Create a Deck of Cards' />
             <Modal.Content>
+            <div className="field">
+              <Dropdown
+                     label="Language"
+                     placeholder='Language'
+                     fluid search selection options={this.props.options}
+                     value={this.state.language}
+                     onChange={this.handleSelectorChange}/>
+            </div>
             <form className='ui form' onSubmit={this.handleSubmit}>
               <div className='field'>
                 <label>Name</label>

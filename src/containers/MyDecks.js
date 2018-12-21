@@ -3,12 +3,19 @@ import {Link} from 'react-router-dom'
 import DeckModal from '../components/DeckModal'
 
 class MyDecks extends React.Component{
+
   render(){
+
+  
+    const options = this.props.languages.map(language=> {
+      return {key: language.id, text: language.name, value: language.id}
+    })
+
     return(
       <div className="MyFlashcards">
       <h3>My Flashcards: </h3>
 
-      <DeckModal currentUser={this.props.currentUser} addDecks={this.props.addDecks} updateCurrentDeck={this.props.updateCurrentDeck}/>
+      <DeckModal options={options} currentUser={this.props.currentUser} addDecks={this.props.addDecks} updateCurrentDeck={this.props.updateCurrentDeck}/>
 
       <div className="ui cards">
           {this.props.decks.map(deck=> {
@@ -19,7 +26,7 @@ class MyDecks extends React.Component{
                   {deck.name}
                   </div>
                   <div className="meta">
-                    Created on: {deck.created_at}
+                  {(this.props.languages.filter(language=> language.id === deck.language_id))[0].name}
                   </div>
                   <div className="description">
                     description....

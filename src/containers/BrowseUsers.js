@@ -8,18 +8,11 @@ class BrowseUsers extends React.Component{
   constructor(){
     super()
     this.state={
-      users: [],
       searchTerm: ""
     }
   }
 
-  componentDidMount(){
-    fetch('http://localhost:3000/users')
-    .then(res=>res.json())
-    .then(data => this.setState({
-      users: data
-    }))
-  }
+
   handleSearchChange = (event, {value}) => {
       this.setState({
         searchTerm: value
@@ -30,7 +23,7 @@ class BrowseUsers extends React.Component{
 
   let { currentUser } = this.props
 
-  const otherUsers = this.state.users.filter(user=> user.id !== currentUser.id)
+  const otherUsers = this.props.users.filter(user=> user.id !== currentUser.id)
 
   const searchedUsers = otherUsers.filter(user=> {
     return user.username.toLowerCase().includes(this.state.searchTerm)
@@ -46,7 +39,7 @@ class BrowseUsers extends React.Component{
           <Link key={user.id} to={`/profile/${user.id}`}>
           <div key={user.id} className="ui card" >
             <div className="image">
-          
+
               <img src={user.image} alt="sdkfl"/>
             </div>
             <div className="content">

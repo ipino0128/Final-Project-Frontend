@@ -16,7 +16,7 @@ class UserDecks extends React.Component{
                         {deck.name}
                         </div>
                         <div className="meta">
-                          Created on: {deck.created_at}
+                          Created by: {this.props.currentFriend.username}
                         </div>
                         <div className="description">
                           description....

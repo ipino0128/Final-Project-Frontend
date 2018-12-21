@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Header, Modal} from 'semantic-ui-react'
+import { Button, Header, Modal, Dropdown} from 'semantic-ui-react'
 import { Redirect, Link} from 'react-router-dom'
 
 class EditDeckModal extends React.Component{
@@ -8,6 +8,7 @@ class EditDeckModal extends React.Component{
     this.state={
       name: "",
       user_id: "",
+      language_id: "",
       modalOpen: false,
       redirectId: null
     }
@@ -17,6 +18,12 @@ class EditDeckModal extends React.Component{
   this.setState({
     [event.target.name]: event.target.value,
     user_id: this.props.currentUser.id,
+  })
+}
+
+handleSelectorChange = (event, data) => {
+  this.setState({
+    language_id: data.value
   })
 }
     handleOpen = () => this.setState({ modalOpen: true })
@@ -30,6 +37,7 @@ class EditDeckModal extends React.Component{
         let data = {
           name: this.state.name,
           user_id: this.state.user_id,
+          language_id: this.state.language_id
         }
         fetch(`http://localhost:3000/decks/${id}`, {
         method: "PATCH",
@@ -63,6 +71,14 @@ class EditDeckModal extends React.Component{
             <Header icon='folder outline' content='Edit Deck' />
             <Modal.Content>
             <form className='ui form' onSubmit={this.handleSubmit}>
+            <div className="field">
+              <Dropdown
+                     label="Language"
+                     placeholder='Language'
+                     fluid search selection options={this.props.options}
+                     value={this.state.language}
+                     onChange={this.handleSelectorChange}/>
+            </div>
               <div className='field'>
                 <label>Name</label>
                 <input

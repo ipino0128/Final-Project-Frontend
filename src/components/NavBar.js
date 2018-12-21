@@ -31,6 +31,12 @@ const NavBar = (props) => {
           />
           <Menu.Item
             as={NavLink}
+            to="/languages"
+            name="Browse Languages"
+            active={pathname === "/languages"}
+          />
+          <Menu.Item
+            as={NavLink}
             to="/friendrequests"
             name="Friend Requests"
             active={pathname === "/friendrequests"}

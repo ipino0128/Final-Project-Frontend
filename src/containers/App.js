@@ -9,6 +9,8 @@ import DeckDetails from '../components/DeckDetails'
 import FriendProfile from './FriendProfile'
 import BrowseUsers from './BrowseUsers'
 import FriendRequests from '../components/FriendRequests'
+import BrowseLanguages from './BrowseLanguages'
+import LanguageProfile from './LanguageProfile'
 
 
 class App extends Component {
@@ -18,6 +20,9 @@ class App extends Component {
       currentUser: null,
       currentUsersDecks: [],
       current_deck: null,
+      languages: [],
+      users: [],
+      favorite_decks: []
     }
   }
 
@@ -40,27 +45,66 @@ class App extends Component {
       }
     })
   }
+  fetchLanguages = () => {
+    let token = localStorage.getItem('token')
+    fetch(`http://localhost:3000/languages`, {
+      method: "GET",
+      headers: {
+        "Authorization" : `Bearer ${token}`
+      }
+    }).then(res=>res.json())
+    .then(data => {
+      this.setState({
+        languages: data
+      })
+    })
+  }
 
+  fetchUsers = () => {
+    let token = localStorage.getItem('token')
+    fetch(`http://localhost:3000/users/`, {
+      method: "GET",
+      headers: {
+        "Authorization" : `Bearer ${token}`
+      }
+    })
+    .then(res=> res.json())
+    .then(data=> this.setState({
+      users: data
+    }))
+
+  }
+
+  fetchFavorites = () =>{
+    let token = localStorage.getItem('token')
+    fetch(`http://localhost:3000/favorite_decks/`, {
+      method: "GET",
+      headers: {
+        "Authorization" : `Bearer ${token}`
+      }
+    })
+    .then(res=> res.json())
+    .then(data=> this.setState({
+      favorite_decks: data
+    }))
+  }
 
   componentDidMount(){
     console.log("hello")
     let token = localStorage.getItem('token')
     if(!!token){
+      console.log(token)
       console.log("inside token component did mount")
-       fetch(`http://localhost:3000/profile`, {
-         method: "GET",
-         headers: {
-           "Authorization" : `Bearer ${token}`
-         }
-       }).then(res => {
-         console.log(`app component did mount :${res}`)
-         res.json()
-       })
+       fetch("http://localhost:3000/profile", {headers: {Authorization: `Bearer ${token}`}})
+       .then(res => res.json())
        .then(data => {
-         console.log(data)
          this.setState({
-           currentUser: data
+           currentUser: data.user
          })
+         this.handleDecks()
+         this.fetchLanguages()
+         this.fetchUsers()
+         this.fetchFavorites()
        })
   }
 }
@@ -68,7 +112,10 @@ class App extends Component {
 
   updateCurrentUser = (user) => {
    this.setState({currentUser: user});
-   this.handleDecks();
+   this.handleDecks()
+   this.fetchLanguages()
+   this.fetchUsers()
+   this.fetchFavorites()
    console.log(`token: ${localStorage.getItem('token')}`)
   }
 
@@ -112,6 +159,18 @@ class App extends Component {
     .then(data=> console.log(data))
   }
 
+  removeDecks = (deck) => {
+    this.setState({
+    currentUsersDecks: this.state.currentUsersDecks.filter(prevDeck=> prevDeck.id !== deck.id)
+  })
+  }
+
+  addFavorite = (favorite_deck) => {
+    this.setState({
+      favorite_decks: [...this.state.favorite_decks, favorite_deck]
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -119,17 +178,17 @@ class App extends Component {
           <Switch>
           <Route exact path="/profile" render={() =>
               <Profile
+              languages={this.state.languages}
               currentUser={this.state.currentUser}
               displayDeckCards={this.displayDeckCards}
               decks={this.state.currentUsersDecks}
               addDecks={this.addDecks}
               updateCurrentDeck={this.updateCurrentDeck}
-
+              favorite_decks={this.state.favorite_decks}
               />}
               />
 
             <Route exact path="/profile/:id" render={(data) => {
-              console.log(data)
               return <FriendProfile
               friendId={data.match.params.id}
               currentUser={this.state.currentUser}
@@ -144,9 +203,26 @@ class App extends Component {
           <Route exact path="/users" render={() =>
               <BrowseUsers
               currentUser={this.state.currentUser}
-              setFriend={this.setFriend}
+              users={this.state.users}
               />}
               />
+          <Route exact path="/languages" render={() =>
+              <BrowseLanguages
+              languages={this.state.languages}
+              currentUser={this.state.currentUser}
+              currentUser={this.state.currentUser}
+              />}
+              />
+          <Route exact path="/languages/:id" render={(data) => {
+              return <LanguageProfile
+              languageID={data.match.params.id}
+              languages={this.state.languages}
+              currentUser={this.state.currentUser}
+              handleClick={this.displayDeckCards}
+              />} }
+              />
+
+
           <Route exact path="/friendrequests" render={() =>
               <FriendRequests
               currentUser={this.state.currentUser}
@@ -159,13 +235,16 @@ class App extends Component {
             /> }
           />
           <Route exact path="/decks/:id" render={(data)=>{
-            console.log(data)
             return <DeckDetails
+              languages={this.state.languages}
               deckId={data.match.params.id}
               currentUser={this.state.currentUser}
               current_deck={this.state.current_deck}
               currentFriend={this.state.currentFriend}
-              updateCurrentDeck={this.updateCurrentDeck}/>
+              updateCurrentDeck={this.updateCurrentDeck}
+              removeDecks={this.removeDecks}
+              users={this.state.users}
+              addFavorite={this.addFavorite}/>
           }}
           />
           <Route path='/' render={()=> <Welcome/>}/>
