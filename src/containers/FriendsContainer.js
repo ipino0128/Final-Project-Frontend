@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 const FriendsContainer = (props) => {
   return(
     <div className="FriendsContainer">
-    <h5> Friends: </h5>
+    <h3> FRIENDS: </h3>
     {props.currentUser.friends.map(friend=> {
       return(
       <div key={friend.id}>
@@ -22,7 +22,7 @@ const FriendsContainer = (props) => {
           </Link>
          :
          <Link key={friend.id} to={`/profile/${friend.id}`}>
-           <div 
+           <div
              key={friend.id}
              className="FriendCard"
              data-tooltip={friend.username}

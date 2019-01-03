@@ -1,11 +1,13 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import { Button} from "semantic-ui-react";
+
 
 class UserDecks extends React.Component{
   render(){
 
     return(
-      <div className="UserFlashcards">
+      <div className="MyFlashcards">
       <h3>Flashcards: </h3>
       <div className="ui cards">
               {this.props.currentFriend.decks.map(deck=> {
@@ -16,15 +18,13 @@ class UserDecks extends React.Component{
                         {deck.name}
                         </div>
                         <div className="meta">
-                          Created by: {this.props.currentFriend.username}
+                          {(this.props.languages.filter(language=> language.id === deck.language_id))[0].name}
                         </div>
-                        <div className="description">
-                          description....
-                        </div>
+                      
                     </div>
 
                     <Link to={`/decks/${deck.id}`}>
-                      <button data-itinerary-id={deck.id}>View Cards</button>
+                        <Button data-itinerary-id={deck.id} color="teal" content='View Cards' />
                     </Link>
                     </div>
                   )

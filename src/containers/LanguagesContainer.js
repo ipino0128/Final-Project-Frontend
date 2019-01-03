@@ -4,7 +4,7 @@ const LanguagesContainer = (props) => {
 
   return(
     <div className="LanguagesContainer">
-    <h5> Languages: </h5>
+    <h3> LANGUAGES: </h3>
     <ul>
     {props.currentUser.languages.map(language => {
       return(

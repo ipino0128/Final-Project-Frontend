@@ -1,14 +1,16 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import { Button} from "semantic-ui-react";
+
 
 class MyFavorites extends React.Component{
 
   render(){
-    
+
     const usersFavorites = this.props.favorite_decks.filter(deck=> deck.user_id === this.props.currentUser.id)
     console.log(usersFavorites)
     return(
-      <div>
+      <div className="MyFavorites">
 
       <h3>My Favorites: </h3>
         <div className="ui cards">
@@ -26,7 +28,7 @@ class MyFavorites extends React.Component{
           </div>
 
           <Link to={`/decks/${favorite.deck.id}`}>
-            <button data-itinerary-id={favorite.deck.id}>View Cards</button>
+              <Button data-itinerary-id={favorite.deck.id} color="teal" content='View Cards' />
           </Link>
           </div>
         )

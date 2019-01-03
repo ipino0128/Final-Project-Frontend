@@ -6,6 +6,8 @@ import WallContainer from './WallContainer'
 import MyDecks from './MyDecks'
 import MyFavorites from './MyFavorites'
 import EditUserModal from '../components/EditUserModal'
+import { Grid} from "semantic-ui-react";
+import DateJoined from './DateJoined'
 
 
 class Profile extends React.Component{
@@ -13,7 +15,8 @@ class Profile extends React.Component{
 render(){
   let { currentUser } = this.props
  return currentUser ? (
-   <div>
+
+   <div className="ProfilePage">
     <div className="cover">
       <img src={currentUser.coverphoto}/>
   </div>
@@ -39,25 +42,37 @@ render(){
 
     </div>
     </div>
-    <br/><br/><br/>
+    <br/><br/>
 
+<div className="ProfileStuff">
+
+  <br/>
+   <Grid columns={2} divided>
+     <Grid.Column>
+      <LanguagesContainer currentUser={currentUser}/>
+    </Grid.Column>
+    <Grid.Column>
+     <DateJoined currentUser={currentUser}/>
+    </Grid.Column>
+  </Grid>
+  <br/><br/><br/><br/>
   <WallContainer />
+  <br/>
   <FriendsContainer currentUser={currentUser} user={currentUser}/>
-  <LanguagesContainer currentUser={currentUser}/>
   <MyDecks
-  currentUser={currentUser}
-  handleClick={this.props.displayDeckCards}
-  decks={this.props.decks}
-  addDecks={this.props.addDecks}
-  updateCurrentDeck={this.props.updateCurrentDeck}
-  languages={this.props.languages}/>
+    currentUser={currentUser}
+    handleClick={this.props.displayDeckCards}
+    decks={this.props.decks}
+    addDecks={this.props.addDecks}
+    updateCurrentDeck={this.props.updateCurrentDeck}
+    languages={this.props.languages}/>
   <br/>
   <MyFavorites
   currentUser={this.props.currentUser}
   favorite_decks={this.props.favorite_decks}
   languages={this.props.languages}
   handleClick={this.props.displayDeckCards}/>
-
+</div>
    </div>
  ) : <Redirect to='/login' />
  }

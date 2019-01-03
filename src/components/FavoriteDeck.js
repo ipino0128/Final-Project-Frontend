@@ -22,7 +22,7 @@ class FavoriteDeck extends React.Component{
     .then(favorite_deck => {
       console.log(favorite_deck)
       this.props.addFavorite(favorite_deck)
-    
+
     })
   }
 
@@ -47,11 +47,11 @@ class FavoriteDeck extends React.Component{
     return(
   <div>
 
+<Button  color="teal" onClick={this.favoriteButton} icon="heart" className="FavoriteButton"></Button>
 
-      <button onClick={this.favoriteButton}> favorite </button>
+<Button  color="black" onClick={this.unfavoriteButton} icon="remove" className="UnfavoriteButton"></Button>
 
 
-      <button onClick={this.unfavoriteButton}> unfavorite </button>
 
 </div>
     )

@@ -1,6 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import DeckModal from '../components/DeckModal'
+import { Button} from "semantic-ui-react";
+
 
 class MyDecks extends React.Component{
 
@@ -33,7 +35,8 @@ class MyDecks extends React.Component{
               </div>
 
               <Link to={`/decks/${deck.id}`}>
-                <button data-itinerary-id={deck.id}>View Cards</button>
+                <Button data-itinerary-id={deck.id} color="teal" content='View Cards' />
+
               </Link>
               </div>
             )

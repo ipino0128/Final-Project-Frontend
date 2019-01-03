@@ -3,7 +3,7 @@ import FlashcardsContainer from '../containers/FlashcardsContainer'
 import CardModal from './CardModal'
 import FavoriteDeck from './FavoriteDeck'
 import EditDeckModal from './EditDeckModal'
-import {Button, Icon} from 'semantic-ui-react'
+import {Button, Icon, Grid} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
 
@@ -69,14 +69,32 @@ render(){
 
   return(
     <div>
-    {this.props.currentUser ?
+    {this.props.currentUser  ?
 
       <div className="DeckDetails">
-        <h2> {this.props.current_deck.name}</h2>
-        <h3> by: {deckAuthor[0].username} </h3>
-        <h3> Language: {filteredLanguage[0].name}</h3>
-        <h5> {this.props.current_deck.description}</h5>
-
+        <br/>
+        <div className="DeckHeader">
+        <h1> {this.props.current_deck.name}</h1>
+         <Grid divided='vertically'>
+           <Grid.Row columns={2}>
+              <Grid.Column>
+                  <Link to={`/profile/${deckAuthor[0].id}`}>
+                <h3> Created by: {deckAuthor[0].username} </h3>
+                </Link>
+              </Grid.Column>
+              <Grid.Column>
+              <Link to={`/languages/${filteredLanguage[0].id}`}>
+                <h3> Language: {filteredLanguage[0].name}</h3>
+                </Link>
+              </Grid.Column>
+          </Grid.Row>
+      <Grid.Row columns={1}>
+        <Grid.Column>
+        <h4> {this.props.current_deck.description}</h4>
+          </Grid.Column>
+        </Grid.Row>
+            </Grid>
+            </div>
 
       { this.props.currentUser.id !== this.props.current_deck.user_id ?
         <div>
@@ -90,10 +108,11 @@ render(){
         </div>
          :
          <div>
+           <h3>Add card: </h3>
         <CardModal current_deck={this.props.current_deck} addCards={this.addCards}/>
         <EditDeckModal options={options} current_deck={this.props.current_deck} currentUser={this.props.currentUser} updateCurrentDeck={this.props.updateCurrentDeck}/>
         <Link to={`/profile`}>
-          <Button color="black" onClick={this.deleteDeck}><Icon name="remove" /></Button>
+          <Button color="black" onClick={this.deleteDeck} icon="remove" className="DeleteDeck"></Button>
         </Link>
         </div>
       }

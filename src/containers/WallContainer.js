@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button} from "semantic-ui-react";
 
 class WallContainer extends React.Component{
   render(){
@@ -8,7 +9,7 @@ class WallContainer extends React.Component{
         <div className="field">
           <textarea placeholder="My Status" rows="2"></textarea>
         </div>
-         <button className="ui button" type="submit">Post</button>
+        <Button color="teal" content='Post' />
         </div>
     </div>
     )

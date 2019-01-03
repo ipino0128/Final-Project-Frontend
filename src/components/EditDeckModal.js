@@ -60,9 +60,10 @@ handleSelectorChange = (event, data) => {
   render(){
 
     return(
-      <div>
+      <div className="EditDeckModal">
       <Modal trigger={<Button
           onClick={this.handleOpen}
+          color="teal"
           icon='edit'></Button>}
           open={this.state.modalOpen}
           onClose={this.handleClose}

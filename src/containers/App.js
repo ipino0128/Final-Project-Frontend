@@ -212,7 +212,7 @@ console.log(this.state.favorite_decks.find(deck => deck.id === favorite_deck.id)
               decks={this.state.currentUsersDecks}
               addDecks={this.addDecks}
               updateCurrentDeck={this.updateCurrentDeck}
-
+              languages={this.state.languages}
               />} }
                 />
 

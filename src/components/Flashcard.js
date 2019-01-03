@@ -31,7 +31,7 @@ class Flashcard extends React.Component{
           { this.props.currentUser.id !== this.props.current_deck.user_id ? null :
             <div>
             <EditCardModal card={this.props.card} updateCards={this.props.updateCards}/>
-            <Button color="black" onClick={this.deleteCard}><Icon name="remove" /></Button>
+            <Button color="black" onClick={this.deleteCard} icon="remove"></Button>
             </div>
            }
             <p>{this.props.card.back}</p>

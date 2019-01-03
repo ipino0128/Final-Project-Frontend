@@ -55,7 +55,7 @@ class CardModal extends React.Component{
       <div>
       <Modal trigger={<Button
           onClick={this.handleOpen}
-          icon='add'></Button>}
+          icon='add' color="teal"></Button>}
           open={this.state.modalOpen}
           onClose={this.handleClose}
           closeIcon>

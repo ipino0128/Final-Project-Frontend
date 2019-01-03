@@ -1,5 +1,7 @@
 import React from 'react'
 import Flashcard from '../components/Flashcard'
+import { Grid } from 'semantic-ui-react'
+
 
 
 class FlashcardsContainer extends React.Component{
@@ -11,6 +13,7 @@ class FlashcardsContainer extends React.Component{
     return(
       <div>
           <div className="FlashcardsContainer">
+          <Grid>
           {filteredCards.map(card => {
             return(
               <Flashcard key={card.id}
@@ -21,6 +24,7 @@ class FlashcardsContainer extends React.Component{
               removeCards={this.props.removeCards}/>
             )
           })}
+          </Grid>
 
           </div>
 

@@ -7,8 +7,8 @@ class EditUserModal extends React.Component{
     super()
     this.state={
       username: "",
-      bio: "",
       image: "",
+      coverphoto: "",
       modalOpen: false,
       redirectId: null,
     }
@@ -32,8 +32,8 @@ class EditUserModal extends React.Component{
 
         let data = {
           name: this.state.username,
-          bio: this.state.bio,
-          image: this.state.image
+          image: this.state.image,
+          coverphoto: this.state.coverphoto
         }
         fetch(`http://localhost:3000/users/${this.props.currentUser.id}`, {
         method: "PATCH",
@@ -74,16 +74,7 @@ class EditUserModal extends React.Component{
                 placeholder='username'
                 />
               </div>
-              <div className='field'>
-                <label>Bio</label>
-                <input
-                name="bio"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.bio}
-                placeholder='Description'
-                />
-              </div>
+            
               <div className='field'>
                 <label>Profile Picture</label>
                 <input
@@ -92,6 +83,16 @@ class EditUserModal extends React.Component{
                 onChange={this.handleChange}
                 value={this.state.image}
                 placeholder='Profile Picture'
+                />
+              </div>
+              <div className='field'>
+                <label>Cover Photo</label>
+                <input
+                name="coverphoto"
+                type="text"
+                onChange={this.handleChange}
+                value={this.state.coverphoto}
+                placeholder='Cover Photo'
                 />
               </div>
               <Button type="submit"> Update </Button>

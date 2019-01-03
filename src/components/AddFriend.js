@@ -1,4 +1,6 @@
 import React from 'react'
+import { Button} from "semantic-ui-react";
+
 
 class AddFriend extends React.Component{
   constructor(){
@@ -52,12 +54,16 @@ class AddFriend extends React.Component{
     let idArray = this.props.currentUser.friends.map(friend=> friend.id)
     if (idArray.includes(this.props.currentFriend.id)){
       return(
-        this.state.removeIsClicked ? <p> Friend removed </p> : <button onClick={this.removeFriendButton}>Remove friend</button>
+        this.state.removeIsClicked ? <p> Friend removed </p> :
+        <Button onClick={this.removeFriendButton} color="teal" content='Remove friend' />
+
 
       )
     } else {
       return(
-        this.state.addIsClicked ? <p> Pending ... </p> : <button onClick={this.addFriendButton}>Add friend</button>
+        this.state.addIsClicked ? <p> Pending ... </p> :
+          <Button onClick={this.addFriendButton} color="teal" content='Add friend' />
+
       )
     }
 

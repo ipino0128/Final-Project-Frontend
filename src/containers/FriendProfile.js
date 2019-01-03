@@ -6,6 +6,9 @@ import WallContainer from './WallContainer'
 import MyDecks from './MyDecks'
 import AddFriend from '../components/AddFriend'
 import UserDecks from './UserDecks'
+import {Grid} from "semantic-ui-react";
+import DateJoined from './DateJoined'
+
 
 class FriendProfile extends React.Component{
   constructor(){
@@ -74,15 +77,18 @@ render(){
   </div>
   </div>
     <br/><br/><br/>
-  <div className="ui form">
-    <div className="field">
-      <textarea placeholder="Post on their wall..." rows="2"></textarea>
-    </div>
-     <button className="ui button" type="submit">Post</button>
-    </div>
-  <FriendsContainer currentUser={current_friend} user={this.props.currentUser} />
-  <LanguagesContainer currentUser={current_friend}/>
-  <UserDecks currentFriend={current_friend} handleClick={this.props.displayDeckCards}/>
+
+ <Grid columns={2} divided>
+    <Grid.Column>
+      <LanguagesContainer currentUser={current_friend}/>
+    </Grid.Column>
+    <Grid.Column>
+     <DateJoined currentUser={current_friend}/>
+    </Grid.Column>
+  </Grid>
+  <br/><br/><br/><br/><br/>
+    <FriendsContainer currentUser={current_friend} user={this.props.currentUser} />
+  <UserDecks languages={this.props.languages} currentFriend={current_friend} handleClick={this.props.displayDeckCards}/>
 
 
    </div>

@@ -1,6 +1,7 @@
 .App{
   /* background-color: rgb(215, 240, 247) */
 
+
 }
 
 .App-logo {
@@ -69,8 +70,10 @@
 
 
 .FriendCard img{
-  width: 50px;
-  height: 70px
+  width: 80px;
+  height: 80px;
+  border-radius: 300px;
+
 }
 
 .profile img{
@@ -84,7 +87,7 @@
 
 
 #EditIcon {
-  text-align: right;
+  text-align: left;
 }
 
 .flip-card {
@@ -165,8 +168,8 @@ height: 600px;
 }
 
 .Logo {
-  max-width: 1368px;
-  margin: auto;
+
+  margin: 0 auto;
   height: 200px;
   background-color: rgb(0, 187, 186);
   color: white;
@@ -174,8 +177,7 @@ height: 600px;
 }
 
 .About {
-  max-width: 1368px;
-  margin: auto;
+  margin: 0 auto;
   height: 600px;
   background-color: rgb(0, 187, 186);
   color: white;
@@ -184,7 +186,7 @@ height: 600px;
 
 .cover img{
   width: 100%;
-  height: 400px;
+  height: 380px;
   position: relative;
 }
 
@@ -195,7 +197,7 @@ height: 600px;
   position: absolute;
   top: 100px;
   left: 0;
-  right: 30px;
+  right: 0px;
   z-index: 10;
   text-align: center;
  }
@@ -248,7 +250,9 @@ body, html {
 }
 
 .DeckDetails{
-  text-align: center;
+  background-color: rgb(212, 254, 248);
+  margin: 0 auto;
+  height: 800px;
 }
 
 .FlashcardsContainer{
@@ -259,4 +263,106 @@ body, html {
 .ui.secondary.pointing.menu{
   margin-top: 0;
   margin-bottom: 0;
+}
+
+.ui.card img{
+  width: 100%;
+  height: 200px;
+}
+
+
+.WallContainer{
+  margin: 0 auto;
+     width: 1300px;
+
+}
+
+.FriendsContainer{
+  margin: 0 auto;
+  position: absolute;
+    left: 70px;
+    text-align: center;
+
+     width: 100px;
+}
+
+.LanguagesContainer{
+  margin: 0 auto;
+  position: absolute;
+  text-align: center;
+    left: 400px;
+
+
+}
+
+
+
+.MyFlashcards{
+  border: solid;
+   border-color: rgb(0, 187, 176);
+   border-width: thin;
+   margin: 0 auto;
+   position: absolute;
+    right: 50px;
+    width: 1100px;
+}
+
+.MyFavorites{
+  border: solid;
+   border-color: rgb(0, 187, 176);
+   border-width: thin;
+   margin: 0 auto;
+   position: absolute;
+   top: 950px;
+    right: 50px;
+    width: 1100px;
+}
+
+.ui.cards>.card{
+  text-align: center;
+  height: 120px;
+}
+
+.DeckHeader{
+  text-align: center
+}
+
+.EditDeckModal{
+  margin: 0 auto;
+  position: absolute;
+  top: 120px;
+  right: 720px;
+
+}
+
+.DeleteDeck{
+  margin: 0 auto;
+  position: absolute;
+  top: 120px;
+  right: 670px;
+}
+
+.FavoriteButton{
+  margin: 0 auto;
+  position: absolute;
+  top: 120px;
+  right: 720px;
+}
+
+.UnfavoriteButton{
+  margin: 0 auto;
+  position: absolute;
+  top: 120px;
+  right: 670px;
+}
+
+.LanguageHeader{
+  text-align: center;
+}
+
+.LangUsers{
+  margin: 0 auto;
+  position: absolute;
+  top: 400px;
+  left: 60px;
 }

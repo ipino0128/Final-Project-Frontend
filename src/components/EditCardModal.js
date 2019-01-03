@@ -49,10 +49,10 @@ class EditCardModal extends React.Component{
 
   render(){
     return(
-      <div>
+      <div className="EditCardModal">
       <Modal trigger={<Button
           onClick={this.handleOpen}
-          icon='edit'></Button>}
+          icon='edit' color="teal"></Button>}
           open={this.state.modalOpen}
           onClose={this.handleClose}
           closeIcon>
