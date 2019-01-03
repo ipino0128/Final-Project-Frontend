@@ -75,14 +75,19 @@ render(){
         <h2> {this.props.current_deck.name}</h2>
         <h3> by: {deckAuthor[0].username} </h3>
         <h3> Language: {filteredLanguage[0].name}</h3>
-        <h5> description... </h5>
+        <h5> {this.props.current_deck.description}</h5>
 
 
       { this.props.currentUser.id !== this.props.current_deck.user_id ?
+        <div>
         <FavoriteDeck
         currentUser={this.props.currentUser}
         current_deck={this.props.current_deck}
-        addFavorite={this.props.addFavorite}/>
+        addFavorite={this.props.addFavorite}
+        removeFavorite={this.props.removeFavorite}
+        favorite_decks={this.props.favorite_decks}/>
+
+        </div>
          :
          <div>
         <CardModal current_deck={this.props.current_deck} addCards={this.addCards}/>

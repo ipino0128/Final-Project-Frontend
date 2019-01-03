@@ -11,6 +11,7 @@ import BrowseUsers from './BrowseUsers'
 import FriendRequests from '../components/FriendRequests'
 import BrowseLanguages from './BrowseLanguages'
 import LanguageProfile from './LanguageProfile'
+import Signup from '../components/Signup'
 
 
 class App extends Component {
@@ -22,7 +23,8 @@ class App extends Component {
       current_deck: null,
       languages: [],
       users: [],
-      favorite_decks: []
+      favorite_decks: [],
+
     }
   }
 
@@ -35,15 +37,11 @@ class App extends Component {
       }
     }).then(r => r.json())
     .then(data => {
-      if(!!data){
+      console.log(data.decks)
         this.setState({
           currentUsersDecks: data.decks
         })
-      }
-      else{
-        console.log(data)
-      }
-    })
+      })
   }
   fetchLanguages = () => {
     let token = localStorage.getItem('token')
@@ -110,8 +108,12 @@ class App extends Component {
 }
 
 
-  updateCurrentUser = (user) => {
-   this.setState({currentUser: user});
+  updateCurrentUser = (user, decks) => {
+    debugger
+   this.setState({
+     currentUser: user,
+     currentUsersDecks: decks
+   })
    this.handleDecks()
    this.fetchLanguages()
    this.fetchUsers()
@@ -166,10 +168,24 @@ class App extends Component {
   }
 
   addFavorite = (favorite_deck) => {
-    this.setState({
-      favorite_decks: [...this.state.favorite_decks, favorite_deck]
-    })
+debugger
+console.log(this.state.favorite_decks.find(deck => deck.id === favorite_deck.id) === undefined)
+    if (!this.state.favorite_decks.find(deck => deck.id === favorite_deck.id)) {
+      this.setState({
+        favorite_decks: [...this.state.favorite_decks, favorite_deck]
+      })
+    } else {
+      console.log('goodbye')
+    }
   }
+
+  removeFavorite = (unfavorite_deck) => {
+      this.setState({
+        favorite_decks: this.state.favorite_decks.filter(prevDeck=> prevDeck.id !== unfavorite_deck.id)
+      })
+  }
+
+
 
   render() {
     return (
@@ -244,10 +260,18 @@ class App extends Component {
               updateCurrentDeck={this.updateCurrentDeck}
               removeDecks={this.removeDecks}
               users={this.state.users}
-              addFavorite={this.addFavorite}/>
+              addFavorite={this.addFavorite}
+              removeFavorite={this.removeFavorite}
+              favorite_decks={this.state.favorite_decks}
+            />
           }}
           />
+
+          <Route exact path="/signup" render={() =>  <Signup
+            updateCurrentUser={this.updateCurrentUser}/>} />
+
           <Route path='/' render={()=> <Welcome/>}/>
+
         </Switch>
       </div>
     )

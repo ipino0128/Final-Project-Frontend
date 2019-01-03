@@ -6,7 +6,7 @@ class MyDecks extends React.Component{
 
   render(){
 
-  
+
     const options = this.props.languages.map(language=> {
       return {key: language.id, text: language.name, value: language.id}
     })
@@ -18,7 +18,8 @@ class MyDecks extends React.Component{
       <DeckModal options={options} currentUser={this.props.currentUser} addDecks={this.props.addDecks} updateCurrentDeck={this.props.updateCurrentDeck}/>
 
       <div className="ui cards">
-          {this.props.decks.map(deck=> {
+
+         {this.props.decks.map(deck=> {
             return(
               <div key={deck.id} className="card" onClick={()=>this.props.handleClick(deck)}>
                 <div className="content">
@@ -28,9 +29,7 @@ class MyDecks extends React.Component{
                   <div className="meta">
                   {(this.props.languages.filter(language=> language.id === deck.language_id))[0].name}
                   </div>
-                  <div className="description">
-                    description....
-                  </div>
+
               </div>
 
               <Link to={`/decks/${deck.id}`}>

@@ -43,36 +43,43 @@ render(){
   let { current_friend } = this.state
 
  return current_friend ? (
-   <div className="Profile">
-           <h3> {current_friend.username}'s profile </h3>
-  <AddFriend currentFriend={current_friend} currentUser={this.props.currentUser}/>
+   <div>
+   <div className="cover">
+     <img src={current_friend.coverphoto}/>
+ </div>
+   <div className="profile">
+
+
       <div className="ui card">
-        <div className="image">
-        <i className="edit icon" id="EditIcon"></i>
+
           <img src={current_friend.image} alt="sdkfl"/>
-        </div>
+
         <div className="content">
           <a className="header">{current_friend.username}</a>
           <div className="description">
-            my bio goes here
+            {current_friend.bio}
           </div>
         </div>
         <div className="extra content">
           <a>
             <i className="user icon"></i>
-             Friends
+            {current_friend.friends.length} Friends
           </a>
         </div>
+          <AddFriend currentFriend={current_friend} currentUser={this.props.currentUser}/>
     </div>
 
     <div className="FriendWallContainer">
-    <div className="ui form">
-      <div className="field">
-        <textarea placeholder="Post on their wall..." rows="2"></textarea>
-      </div>
-       <button className="ui button" type="submit">Post</button>
-      </div>
+
   </div>
+  </div>
+    <br/><br/><br/>
+  <div className="ui form">
+    <div className="field">
+      <textarea placeholder="Post on their wall..." rows="2"></textarea>
+    </div>
+     <button className="ui button" type="submit">Post</button>
+    </div>
   <FriendsContainer currentUser={current_friend} user={this.props.currentUser} />
   <LanguagesContainer currentUser={current_friend}/>
   <UserDecks currentFriend={current_friend} handleClick={this.props.displayDeckCards}/>

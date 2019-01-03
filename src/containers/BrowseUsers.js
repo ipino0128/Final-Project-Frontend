@@ -34,14 +34,17 @@ class BrowseUsers extends React.Component{
 
       <div>
       <Search className="search-feature" onSearchChange={_.debounce(this.handleSearchChange, 500)} showNoResults={false} />
+
+    <br/><br/>
+<div className="ui cards">
       {searchedUsers.map(user=> {
         return(
           <Link key={user.id} to={`/profile/${user.id}`}>
-          <div key={user.id} className="ui card" >
-            <div className="image">
+          <div key={user.id} className="ui card browsecards" >
+
 
               <img src={user.image} alt="sdkfl"/>
-            </div>
+
             <div className="content">
               <p className="header">{user.username}</p>
               <div className="description">
@@ -58,6 +61,7 @@ class BrowseUsers extends React.Component{
           </Link>
         )
       })}
+      </div>
       </div>
     ) : <Redirect to='/login' />
   }

@@ -2,12 +2,6 @@ import React from 'react'
 import {Button, Icon, Label} from 'semantic-ui-react'
 
 class FavoriteDeck extends React.Component{
-  constructor(){
-    super()
-    this.state={
-      isClicked: false
-    }
-  }
 
   favoriteButton = () => {
     let token = localStorage.getItem('token')
@@ -26,30 +20,40 @@ class FavoriteDeck extends React.Component{
     })
     .then(res=>res.json())
     .then(favorite_deck => {
-      console.log(data)
+      console.log(favorite_deck)
       this.props.addFavorite(favorite_deck)
-      this.setState({isClicked: true})
+    
     })
   }
 
+  unfavoriteButton = () => {
+    let favoriteDeckToDelete = this.props.favorite_decks.filter(favorite_deck => favorite_deck.deck_id === this.props.current_deck.id)
+    let token = localStorage.getItem('token')
+      fetch(`http://localhost:3000/favorite_decks/${favoriteDeckToDelete[0].id}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization" : `Bearer ${token}`
+        }
+      }).then(res=>res.json())
+      .then(unfavorite_deck=> {
+        this.props.removeFavorite(unfavorite_deck)
+        console.log(unfavorite_deck)
+
+      })
+  }
+
   render(){
+
     return(
-      this.state.isClicked ?
-      <Button color="red" as='div' labelPosition='right' onClick={this.favoriteButton}>
-      <Button icon>
-        <Icon name='heart' />
-      </Button>
-      <Label as='a' basic pointing='left'>
-        0
-      </Label>
-    </Button> : <Button as='div' labelPosition='right' onClick={this.favoriteButton}>
-    <Button icon>
-      <Icon name='heart' />
-    </Button>
-    <Label as='a' basic pointing='left'>
-      0
-    </Label>
-  </Button>
+  <div>
+
+
+      <button onClick={this.favoriteButton}> favorite </button>
+
+
+      <button onClick={this.unfavoriteButton}> unfavorite </button>
+
+</div>
     )
   }
 }

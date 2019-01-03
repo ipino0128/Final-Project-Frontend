@@ -5,34 +5,41 @@ import LanguagesContainer from './LanguagesContainer'
 import WallContainer from './WallContainer'
 import MyDecks from './MyDecks'
 import MyFavorites from './MyFavorites'
+import EditUserModal from '../components/EditUserModal'
+
 
 class Profile extends React.Component{
 
 render(){
-
   let { currentUser } = this.props
-
  return currentUser ? (
-   <div className="Profile">
-           <h3> My profile </h3>
+   <div>
+    <div className="cover">
+      <img src={currentUser.coverphoto}/>
+  </div>
+   <div className="profile">
+
       <div className="ui card">
-        <div className="image">
-        <i className="edit icon" id="EditIcon"></i>
+        <EditUserModal currentUser={currentUser}/>
+
           <img src={currentUser.image} alt="sdkfl"/>
-        </div>
         <div className="content">
           <a className="header">{currentUser.username}</a>
           <div className="description">
-            my bio goes here
+            {currentUser.bio}
           </div>
         </div>
         <div className="extra content">
           <a>
             <i className="user icon"></i>
-             Friends
+            {currentUser.friends.length} Friends
           </a>
         </div>
+
+
     </div>
+    </div>
+    <br/><br/><br/>
 
   <WallContainer />
   <FriendsContainer currentUser={currentUser} user={currentUser}/>
@@ -40,7 +47,8 @@ render(){
   <MyDecks
   currentUser={currentUser}
   handleClick={this.props.displayDeckCards}
-  decks={this.props.decks} addDecks={this.props.addDecks}
+  decks={this.props.decks}
+  addDecks={this.props.addDecks}
   updateCurrentDeck={this.props.updateCurrentDeck}
   languages={this.props.languages}/>
   <br/>

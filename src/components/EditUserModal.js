@@ -1,51 +1,42 @@
 import React from 'react'
 import { Button, Header, Modal, Dropdown} from 'semantic-ui-react'
-import { Redirect, Link} from 'react-router-dom'
 
 
-
-class DeckModal extends React.Component{
+class EditUserModal extends React.Component{
   constructor(){
     super()
     this.state={
-      name: "",
-      description: "",
-      user_id: "",
+      username: "",
+      bio: "",
+      image: "",
       modalOpen: false,
       redirectId: null,
-      language_id: ""
     }
   }
 
   handleChange = (event) => {
   this.setState({
     [event.target.name]: event.target.value,
-    user_id: this.props.currentUser.id,
+
   })
 }
-
-handleSelectorChange = (event, data) => {
-  this.setState({
-    language_id: data.value
-  })
-}
-
 
     handleOpen = () => this.setState({ modalOpen: true })
 
     handleClose = () => this.setState({ modalOpen: false })
 
-      handleSubmit = (e) => {
+
+    handleSubmit = (e) => {
         e.preventDefault()
         let token = localStorage.getItem('token')
+
         let data = {
-          name: this.state.name,
-          description: this.state.description,
-          user_id: this.state.user_id,
-          language_id: this.state.language_id
+          name: this.state.username,
+          bio: this.state.bio,
+          image: this.state.image
         }
-        fetch('http://localhost:3000/decks', {
-        method: "POST",
+        fetch(`http://localhost:3000/users/${this.props.currentUser.id}`, {
+        method: "PATCH",
         headers: {
           "Authorization" : `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -56,61 +47,54 @@ handleSelectorChange = (event, data) => {
       .then(deck => {
         console.log(deck)
         this.handleClose()
-        this.props.addDecks(deck)
-        this.props.updateCurrentDeck(deck)
-        this.setState({
-          redirectId: deck.id
-        })
       })
-
     }
 
 
   render(){
-    if (this.state.redirectId){
-      return <Redirect to={`decks/${this.state.redirectId}`}/>
-    }
     return(
       <div>
       <Modal trigger={<Button
           onClick={this.handleOpen}
-          icon='add'></Button>}
+          icon='edit'></Button>}
           open={this.state.modalOpen}
           onClose={this.handleClose}
           closeIcon>
 
-            <Header icon='folder outline' content='Create a Deck of Cards' />
+            <Header icon='edit' content='Edit Your Profile' />
             <Modal.Content>
-            <div className="field">
-              <Dropdown
-                     label="Language"
-                     placeholder='Language'
-                     fluid search selection options={this.props.options}
-                     value={this.state.language}
-                     onChange={this.handleSelectorChange}/>
-            </div>
             <form className='ui form' onSubmit={this.handleSubmit}>
               <div className='field'>
-                <label>Name</label>
+                <label>Username</label>
                 <input
-                name="name"
+                name="username"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.name}
-                placeholder='Name'
+                value={this.state.username}
+                placeholder='username'
                 />
               </div>
               <div className='field'>
-                <label>Description</label>
+                <label>Bio</label>
                 <input
-                name="description"
+                name="bio"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.description}
+                value={this.state.bio}
                 placeholder='Description'
                 />
               </div>
-              <Button type="submit" > Create </Button>
+              <div className='field'>
+                <label>Profile Picture</label>
+                <input
+                name="image"
+                type="text"
+                onChange={this.handleChange}
+                value={this.state.image}
+                placeholder='Profile Picture'
+                />
+              </div>
+              <Button type="submit"> Update </Button>
             </form>
             </Modal.Content>
           </Modal>
@@ -120,4 +104,4 @@ handleSelectorChange = (event, data) => {
   }
 }
 
-export default DeckModal
+export default EditUserModal

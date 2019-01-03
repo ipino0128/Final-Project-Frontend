@@ -4,12 +4,13 @@ import {Link} from 'react-router-dom'
 class MyFavorites extends React.Component{
 
   render(){
+    
     const usersFavorites = this.props.favorite_decks.filter(deck=> deck.user_id === this.props.currentUser.id)
     console.log(usersFavorites)
     return(
       <div>
 
-      <h3>My Flashcards: </h3>
+      <h3>My Favorites: </h3>
         <div className="ui cards">
       {usersFavorites.map(favorite => {
         return(
@@ -21,9 +22,7 @@ class MyFavorites extends React.Component{
               <div className="meta">
               {(this.props.languages.filter(language=> language.id === favorite.deck.language_id))[0].name}
               </div>
-              <div className="description">
-                description....
-              </div>
+
           </div>
 
           <Link to={`/decks/${favorite.deck.id}`}>
